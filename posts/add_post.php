@@ -1,21 +1,25 @@
 <?php
 include 'header.php';
 
-// Handle the form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postTitle = $_POST['post_title'];
     $postArticle = $_POST['post_article'];
     $postStatus = $_POST['status'];
     $postImage = '';
 
-    // Handle image upload with absolute path and detailed error handling
+    // Handle image upload
     if (isset($_FILES['post_image']) && $_FILES['post_image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/Avos/images/'; // Absolute path to the upload directory
-        
+        $uploadDir = '../images/'; // Path to the images folder (relative to this script)
+
+        // Ensure the directory exists
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
         $imageName = basename($_FILES['post_image']['name']);
         $targetFile = $uploadDir . uniqid() . '_' . $imageName;
 
-        // Check if the file is a valid image
+        // Validate the uploaded file
         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
         $check = getimagesize($_FILES['post_image']['tmp_name']);
 
@@ -24,13 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Check file size (limit to 5MB)
         if ($_FILES['post_image']['size'] > 5000000) {
             echo "<div class='alert alert-danger'>File size exceeds 5MB.</div>";
             exit;
         }
 
-        // Allow only specific formats
         $allowedFormats = ['jpg', 'jpeg', 'png', 'gif'];
         if (!in_array($imageFileType, $allowedFormats)) {
             echo "<div class='alert alert-danger'>Only JPG, JPEG, PNG, and GIF formats are allowed.</div>";
@@ -39,17 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!move_uploaded_file($_FILES['post_image']['tmp_name'], $targetFile)) {
             echo "<div class='alert alert-danger'>File upload failed.</div>";
-            echo "<p>Ensure the directory exists and has proper permissions.</p>";
-            $error = error_get_last();
-            echo "<pre>Error: " . print_r($error, true) . "</pre>";
             exit;
         }
-        
-        // Relative path to save in the database
-        $postImage = '/Avos/images/' . basename($targetFile);
+
+        // Save the relative path for the database
+        $postImage = '../images/' . basename($targetFile);
     }
 
-    // Insert the new post into the database
+    // Insert the post into the database
     $stmt = $pdo->prepare("INSERT INTO member_updates (post_title, post_article, status, post_image, post_date) VALUES (:title, :article, :status, :image, NOW())");
     $stmt->execute([
         'title' => $postTitle,
