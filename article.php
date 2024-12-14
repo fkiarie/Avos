@@ -1,11 +1,11 @@
-<?php
-include 'header.php';
-
+<?php 
+include 'header.php'; 
+include 'db_connect.php';
 
 // Check if the `id` is provided and numeric
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $articleId = intval($_GET['id']);
-
+    
     // Fetch the article from the database
     $stmt = $pdo->prepare("SELECT * FROM member_updates WHERE id = :id AND status = 'published'");
     $stmt->execute(['id' => $articleId]);
