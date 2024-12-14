@@ -57,8 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'image' => $postImage,
     ]);
 
-    // Redirect to the dashboard after successful addition
-    header("Location:index.php");
+    echo "<script>window.location.href='index.php';</script>";
     exit;
 }
 ?>
