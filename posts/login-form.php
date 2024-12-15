@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    include 'db_connect.php'; // Connect to the database
+    // include 'db_connect.php'; // Connect to the database
 
     // Query to check the user credentials
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username AND status = 'Active'");
