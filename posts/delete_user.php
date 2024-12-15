@@ -3,10 +3,11 @@ session_start();
 include 'auth_check.php';
 include 'db_connect.php';
 
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $userId = $_GET['id'];
+// Check if the user ID is provided
+if (isset($_GET['id']) && !empty($_GET['id'])) {
+    $userId = $_GET['id']; // Keep the ID as a string since it's a VARCHAR in the database
 
-    // Check if user exists
+    // Check if the user exists
     $stmt = $pdo->prepare("SELECT id FROM users WHERE id = :id");
     $stmt->execute(['id' => $userId]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
