@@ -5,7 +5,7 @@ include 'header.php'; // Includes navigation and database connection
 // Restrict access to admin role only
 if ($_SESSION['role_type'] !== 'Admin') {
     $_SESSION['message'] = "Access denied. Admins only!";
-    header("Location: dashboard.php");
+    header("Location: index.php");
     exit;
 }
 
@@ -21,22 +21,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Secure password hashing
 
     try {
-        // Insert the new user into the database
-        $stmt = $pdo->prepare("INSERT INTO users (id, name, username, email, tel, role_type, pass, status) VALUES (:id, :name, :username, :email, :tel, :role_type, :pass, :status)");
-        $stmt->execute([
-            'id' => $id,
-            'name' => $name,
-            'username' => $username,
-            'email' => $email,
-            'tel' => $tel,
-            'role_type' => $roleType,
-            'pass' => $password,
-            'status' => $status,
-        ]);
+        // Check if the email or username already exists
+        $checkStmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username");
+        $checkStmt->execute(['email' => $email, 'username' => $username]);
+        $existingUser = $checkStmt->fetch(PDO::FETCH_ASSOC);
 
-        $_SESSION['message'] = "User registered successfully!";
-        echo "<script>window.location.href='users.php';</script>";
-        exit;
+        if ($existingUser) {
+            if ($existingUser['email'] === $email) {
+                $_SESSION['message'] = "Error: Email already registered!";
+            } elseif ($existingUser['username'] === $username) {
+                $_SESSION['message'] = "Error: Username already taken!";
+            }
+        } else {
+            // Insert the new user into the database
+            $stmt = $pdo->prepare("INSERT INTO users (id, name, username, email, tel, role_type, pass, status) VALUES (:id, :name, :username, :email, :tel, :role_type, :pass, :status)");
+            $stmt->execute([
+                'id' => $id,
+                'name' => $name,
+                'username' => $username,
+                'email' => $email,
+                'tel' => $tel,
+                'role_type' => $roleType,
+                'pass' => $password,
+                'status' => $status,
+            ]);
+
+            $_SESSION['message'] = "User registered successfully!";
+            echo "<script>window.location.href='users.php';</script>";
+            exit;
+        }
     } catch (PDOException $e) {
         $_SESSION['message'] = "Error: " . $e->getMessage();
     }
@@ -57,6 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <i class="fas fa-user-plus me-1"></i> Register New User
         </div>
         <div class="card-body">
+            <?php if (isset($_SESSION['message'])): ?>
+                <div class="alert alert-danger">
+                    <?= htmlspecialchars($_SESSION['message']); ?>
+                    <?php unset($_SESSION['message']); ?>
+                </div>
+            <?php endif; ?>
             <form method="POST">
                 <!-- Name -->
                 <div class="row mb-3">

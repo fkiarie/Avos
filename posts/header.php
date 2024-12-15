@@ -135,7 +135,7 @@ include 'db_connect.php';
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Updates</div>
                         <a class="nav-link" href="index.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-regular fa-newspaper"></i></div>
                             Posts
                         </a>
                         <a class="nav-link" href="add_post.php">
@@ -150,14 +150,22 @@ include 'db_connect.php';
                             users
                         </a>
                         <a class="nav-link" href="register-form.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-plus"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
                             Add user
                         </a>
+                        <a class="nav-link" href="logout.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
+                            logout
+                        </a>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                    <div class="sb-sidenav-footer text-center bg-dark text-light py-3">
+                        <div class="small mb-1">Logged in as:</div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <i class="fa fa-user-tie me-2" style="font-size: 1.5rem;"></i>
+                            <span class="fw-bold"><?= htmlspecialchars($_SESSION['username'] ?? 'Guest'); ?></span>
+                        </div>
                     </div>
+
                 </div>
             </nav>
         </div>
