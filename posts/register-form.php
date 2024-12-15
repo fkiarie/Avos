@@ -5,7 +5,7 @@ include 'header.php'; // Includes navigation and database connection
 // Restrict access to admin role only
 if ($_SESSION['role_type'] !== 'Admin') {
     $_SESSION['message'] = "Access denied. Admins only!";
-    header("Location: index.php");
+    echo "<script>window.location.href='users.php';</script>";
     exit;
 }
 

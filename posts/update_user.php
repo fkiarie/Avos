@@ -2,6 +2,14 @@
 session_start();
 include 'header.php';
 
+// Restrict access to admin role only
+if ($_SESSION['role_type'] !== 'Admin') {
+    $_SESSION['message'] = "Access denied. Admins only!";
+    echo "<script>window.location.href='users.php';</script>";
+    exit;
+}
+
+
 // Check if the user ID is provided
 if (isset($_GET['id']) && !empty($_GET['id'])) { // Ensure it's non-empty
     $userId = $_GET['id']; // Do not convert to integer, as ID is a string (VARCHAR)
