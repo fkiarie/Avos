@@ -56,7 +56,7 @@
                             <a href="#" class="nav-link dropdown-toggle <?php echo in_array(basename($_SERVER['PHP_SELF']), ['about.php', 'team.php', 'vision-mission.php', 'membership.php', 'approach.php' , 'why-us.php']) ? 'active' : ''; ?>" data-bs-toggle="dropdown">About Us</a>
                             <div class="dropdown-menu bg-light rounded-0 m-0">
                                 <a href="about.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : ''; ?>">About</a>
-                                <a href="team.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'team.php' ? 'active' : ''; ?>">Our Team</a>
+                                <!-- <a href="team.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'team.php' ? 'active' : ''; ?>">Our Team</a> -->
                                 <a href="vision-mission.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'vision-mission.php' ? 'active' : ''; ?>">Vision & Mission</a>
                                 <a href="membership.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'membership.php' ? 'active' : ''; ?>">Membership</a>
                                 <a href="approach.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'approach.php' ? 'active' : ''; ?>">Our Approach</a>
@@ -80,7 +80,7 @@
                             <div class="dropdown-menu bg-light rounded-0 m-0">
                                 <a href="contact.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">Contact Us</a>
                                 <a href="faq.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'faq.php' ? 'active' : ''; ?>">FAQ</a>
-                                <a href="login-form.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'login-form.php' ? 'active' : ''; ?>">Login</a>                                
+                                <!-- <a href="login-form.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'login-form.php' ? 'active' : ''; ?>">Login</a>                                 -->
                             </div>
                         </div>
                     </div>
