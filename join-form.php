@@ -32,7 +32,7 @@
 
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <p class="mb-4" style="text-align: justify;">Fill out the form below to become a member of the Avocado Exporters Association of Kenya (AEAK). For any inquiries, support, or membership details, our team is here to guide and empower Kenya’s avocado exporters globally.</p>
-                    <form action="message.php" method="post">
+                    <form action="join.php" method="post">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
