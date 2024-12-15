@@ -17,12 +17,11 @@ if (isset($_GET['id'])) {
         $deleteStmt = $pdo->prepare("DELETE FROM member_updates WHERE id = :id");
         $deleteStmt->execute(['id' => $postId]);
 
-        
+
         $_SESSION['message'] = "Post deleted successfully.";
     }
 }
 
 
-header("Location: index.php");
+echo "<script>window.location.href='index.php';</script>";
 exit;
-?>

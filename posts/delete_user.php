@@ -25,7 +25,5 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $_SESSION['message'] = "Invalid user ID!";
 }
 
-// Redirect back to the users page
-header("Location: users.php");
+echo "<script>window.location.href='index.php';</script>";
 exit;
-?>
