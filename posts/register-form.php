@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         $_SESSION['message'] = "User registered successfully!";
-        header("Location: users.php");
+        echo "<script>window.location.href='users.php';</script>";
         exit;
     } catch (PDOException $e) {
         $_SESSION['message'] = "Error: " . $e->getMessage();
