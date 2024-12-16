@@ -26,7 +26,7 @@
                 
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="h-100">
-                       <img src="img/join.png" width="100%">
+                       <img src="img/join-form.jpg" width="100%">
                     </div>
                 </div>
 

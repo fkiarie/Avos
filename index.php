@@ -225,7 +225,6 @@
                 <div class="testimonial-item p-4 p-lg-5">
                 <p class="mb-4">Joining AEAK has transformed our export potential. Their support and advocacy have opened new doors for our business.</p>
                 <div class="d-flex align-items-center justify-content-center">
-                    <img class="img-fluid flex-shrink-0" src="img/test1.jpg" alt="">
                     <div class="text-start ms-3">
                         <h5>John Mwangi</h5>
                         <span class="text-primary">Avocado Exporter</span>
@@ -235,23 +234,13 @@
             <div class="testimonial-item p-4 p-lg-5">
                 <p class="mb-4">AEAK’s dedication to sustainable farming and quality control has made a remarkable impact on our farming practices.</p>
                 <div class="d-flex align-items-center justify-content-center">
-                    <img class="img-fluid flex-shrink-0" src="img/test2.jpg" alt="">
+                    <!-- <img class="img-fluid flex-shrink-0" src="img/test2.jpg" alt=""> -->
                     <div class="text-start ms-3">
                         <h5>Mary Atieno</h5>
                         <span class="text-primary">Small-scale Farmer</span>
                     </div>
                 </div>
             </div>
-                <div class="testimonial-item p-4 p-lg-5">
-                    <p class="mb-4">Joining AEAK transformed my business—access to resources and support boosted my avocado exports!</p>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img class="img-fluid flex-shrink-0" src="img/test3.jpg" alt="">
-                        <div class="text-start ms-3">
-                            <h5>Dylan Gauki</h5>
-                            <span class="text-primary">Member</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
