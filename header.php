@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>AEAK - Avocado Exporters Association of Kenya</title>
@@ -30,7 +31,10 @@
     <link href="css/style.css" rel="stylesheet">
     <!-- font awesome -->
     <script src="https://kit.fontawesome.com/ceb286f3b5.js" crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lf9pKQqAAAAABHSMR4JVG8OGKuvxrkd7hLcu9eQ"></script>
+    <!-- Your code -->
 </head>
+
 <body>
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -53,7 +57,7 @@
                         <a href="index.php" class="nav-item nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">Home</a>
 
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle <?php echo in_array(basename($_SERVER['PHP_SELF']), ['about.php', 'team.php', 'vision-mission.php', 'membership.php', 'approach.php' , 'why-us.php']) ? 'active' : ''; ?>" data-bs-toggle="dropdown">About Us</a>
+                            <a href="#" class="nav-link dropdown-toggle <?php echo in_array(basename($_SERVER['PHP_SELF']), ['about.php', 'team.php', 'vision-mission.php', 'membership.php', 'approach.php', 'why-us.php']) ? 'active' : ''; ?>" data-bs-toggle="dropdown">About Us</a>
                             <div class="dropdown-menu bg-light rounded-0 m-0">
                                 <a href="about.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : ''; ?>">About</a>
                                 <!-- <a href="team.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'team.php' ? 'active' : ''; ?>">Our Team</a> -->
@@ -65,13 +69,13 @@
                         </div>
                         <a href="services.php" class="nav-item nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'services.php' ? 'active' : ''; ?>">Our Services</a>
 
-                       
+
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle <?php echo in_array(basename($_SERVER['PHP_SELF']), ['careers.php', 'blog.php']) ? 'active' : ''; ?>" data-bs-toggle="dropdown">Updates</a>
                             <div class="dropdown-menu bg-light rounded-0 m-0">
                                 <a href="careers.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'careers.php' ? 'active' : ''; ?>">Careers Portal</a>
-                                <a href="blog.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'blog.php' ? 'active' : ''; ?>">Blog Articles</a>                                
+                                <a href="blog.php" class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'blog.php' ? 'active' : ''; ?>">Blog Articles</a>
                             </div>
                         </div>
 

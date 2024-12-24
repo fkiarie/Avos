@@ -74,6 +74,9 @@
 <script src="lib/waypoints/waypoints.min.js"></script>
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
 </body>
