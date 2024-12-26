@@ -87,7 +87,7 @@
 </div>
 <!-- Contact Form End -->
 
-<script src="https://www.google.com/recaptcha/enterprise.js?render=YOUR_SITE_KEY"></script>
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6Lf9pKQqAAAAABHSMR4JVG8OGKuvxrkd7hLcu9eQ"></script>
 <script>
   function onSubmit(token) {
     document.getElementById("join-form").submit();
