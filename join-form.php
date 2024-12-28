@@ -1,4 +1,12 @@
-<?php include 'header.php'; ?>
+<?php
+
+session_start();
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+include 'header.php'; 
+?>
+
 
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
@@ -72,12 +80,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button class="g-recaptcha btn btn-primary rounded-pill py-3 px-5" 
-                                    data-sitekey="YOUR_SITE_KEY" 
-                                    data-callback="onSubmit" 
-                                    data-action="submit">
-                                JOIN AEAK
-                            </button>
+                            <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">JOIN AEAK</button>
                         </div>
                     </div>
                 </form>
@@ -87,10 +90,4 @@
 </div>
 <!-- Contact Form End -->
 
-<script src="https://www.google.com/recaptcha/enterprise.js?render=6Lf9pKQqAAAAABHSMR4JVG8OGKuvxrkd7hLcu9eQ"></script>
-<script>
-  function onSubmit(token) {
-    document.getElementById("join-form").submit();
-  }
-</script>
 <?php include 'footer.php'; ?>

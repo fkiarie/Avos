@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'image' => $postImage,
     ]);
 
-    echo "<script>window.location.href='index.php';</script>";
+    echo "<script>window.location.href='posts.php';</script>";
     exit;
 }
 ?>

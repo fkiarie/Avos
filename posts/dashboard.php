@@ -1,162 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link href="css/dash.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">Dashboard</div>
-            <nav>
-                <ul>
-                    <li><a href="dashboard.php" class="active"><i class="fa fa-users"></i> Manage Users</a></li>
-                    <li><a href="#"><i class="fa fa-blog"></i> Manage Blogs</a></li>
-                    <li><a href="password_reset_request.php"><i class="fa fa-cogs"></i> Password Reset</a></li>
-                    <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
-                </ul>
-            </nav>
-        </aside>
+<?php
+include 'header.php';
 
-        <!-- Main Content -->
-        <main class="main-content">
+// Fetch summary data
+try {
+    // Posts
+    $totalPosts = $pdo->query("SELECT COUNT(*) FROM member_updates")->fetchColumn();
+    $publishedPosts = $pdo->query("SELECT COUNT(*) FROM member_updates WHERE status = 'published'")->fetchColumn();
+    $draftPosts = $pdo->query("SELECT COUNT(*) FROM member_updates WHERE status = 'draft'")->fetchColumn();
 
-            <header>
+    // Members
+    $totalMembers = $pdo->query("SELECT COUNT(*) FROM aeak_members")->fetchColumn();
+    $activeMembers = $pdo->query("SELECT COUNT(*) FROM aeak_members WHERE status = 'active'")->fetchColumn();
+    $inactiveMembers = $pdo->query("SELECT COUNT(*) FROM aeak_members WHERE status = 'inactive'")->fetchColumn();
 
-                <h1>User Management</h1>
-                
-                <div class="floating-search-container">
-        <form action="search.php" method="POST" class="floating-search-form">
-            <input type="text" name="search" class="floating-search-input" placeholder="Search">
-            <button type="submit" name="submit" class="floating-search-button">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
+    // Users
+    $totalUsers = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
+    $adminUsers = $pdo->query("SELECT COUNT(*) FROM users WHERE role_type = 'Admin'")->fetchColumn();
+    $moderatorUsers = $pdo->query("SELECT COUNT(*) FROM users WHERE role_type = 'Moderator'")->fetchColumn();
+} catch (PDOException $e) {
+    die("Error fetching summary data: " . $e->getMessage());
+}
+?>
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+
+    <!-- Posts Summary -->
+    <h2 class="mb-3">Posts Summary</h2>
+    <div class="row mb-4">
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-header text-center">Total Posts</div>
+                <div class="card-body text-center fs-3"><?= $totalPosts; ?></div>
+                <div class="card-footer text-center">
+                    <a href="posts.php" class="text-white">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-header text-center">Published Posts</div>
+                <div class="card-body text-center fs-3"><?= $publishedPosts; ?></div>
+                <div class="card-footer text-center">
+                    <a href="posts.php" class="text-white">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-header text-center">Draft Posts</div>
+                <div class="card-body text-center fs-3"><?= $draftPosts; ?></div>
+                <div class="card-footer text-center">
+                    <a href="posts.php" class="text-white">View Details</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-
-            <?php
-        session_start(); // Start the session
-
-        // Check if the user is logged in
-        if (!isset($_SESSION['user_id'])) {
-            // Redirect to login page if not logged in
-            header("Location: login-form.php");
-            exit();
-        }
-
-        echo "Welcome, " . $_SESSION['user_name']; // You can now access the session variables
-        ?>
-
-        <a href="register-form.php"> <button class="btn-primary">+ Add User</button> </a>
-
-                
-            </header>   
-
-            <section class="content-table">
-                <!-- start -->
-            <table class="table table-striped table-dark">
-  <thead>
-    <tr>
-      <th scope="col">ID No: </th>
-      <th scope="col">Name</th>
-      <th scope="col">Username</th>
-      <th scope="col">Email</th>
-      <th scope="col">Phone No</th>
-      <th scope="col">Role</th>
-      <th scope="col">Status</th>
-      <th scope="col">Reg Date</th>
-      <th scope="col">Edit</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-        <?php
-        // Database connection
-        $servername = "localhost"; // Replace with your database host
-        $username = "kentours"; // Replace with your database username
-        $password = "Team.1234"; // Replace with your database password
-        $dbname = "aeak"; // Replace with your database name
-
-        // Create connection
-        $con = mysqli_connect($servername, $username, $password, $dbname);
-
-        // Check connection
-        if (!$con) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-
-        // Query to fetch data from users table, limiting to 5 rows
-        $feedback = "SELECT * from users ORDER BY reg_date DESC LIMIT 5";
-        $rest = mysqli_query($con, $feedback);
-
-        // Check if there are results
-        if (mysqli_num_rows($rest) > 0) {
-            // Fetch and display the results
-            while ($rows = mysqli_fetch_assoc($rest)) {
-        ?> 
-              <tr>
-                <td><?php echo $rows['id']; ?></td> <!-- ID here serves as Admission No, assuming it's in AEAK format -->
-                <td><?php echo $rows['name']; ?></td>
-                <td><?php echo $rows['username']; ?></td>
-                <td><?php echo $rows['email']; ?></td>
-                <td><?php echo $rows['tel']; ?></td>
-             
-                <td><?php echo $rows['role_type']; ?></td> <!-- Assuming you have a role column in the users table -->
-
-                <!-- Status column with conditional button styles -->
-               <td>
-                 <?php 
-                        // Check if the status is 'Active' or 'Inactive'
-                        if ($rows['status'] == 'Active') {
-                            echo '<a href="update.php?GetID=' . $rows['id'] . '" class="btn btn-success">' . htmlspecialchars($rows['status']) . '</a>';
-                        } else {
-                            echo '<a href="update.php?GetID=' . $rows['id'] . '" class="btn btn-danger" disabled>' . htmlspecialchars($rows['status']) . '</a>';
-                        }
-                    ?>
-                </td>
-
-
-                <td><?php echo $rows['reg_date']; ?></td> <!-- Display registration date -->
-
-                <td><a href="edit.php?GetID=<?php echo $rows['id']; ?>" class="btn btn-primary">Edit</a></td>
-                <td><a href="deleteuser.php?GetID=<?php echo $rows['id']; ?>" class="btn btn-danger">Delete</a></td>
-              </tr>
-        <?php
-            }
-        } else {
-            echo "<tr><td colspan='10'>No records found</td></tr>";
-        }
-
-        // Close the connection
-        mysqli_close($con);
-        ?>
-
-        </table>
-
-
-
-                    </section>
-                </main>
+    <!-- Members Summary -->
+    <h2 class="mb-3">Members Summary</h2>
+    <div class="row mb-4">
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-header text-center">Total Members</div>
+                <div class="card-body text-center fs-3"><?= $totalMembers; ?></div>
+                <div class="card-footer text-center">
+                    <a href="members.php" class="text-white">View Details</a>
+                </div>
             </div>
-            <script src="script.js">
-            document.addEventListener("DOMContentLoaded", () => {
-            const deleteButtons = document.querySelectorAll(".btn-delete");
+        </div>
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-header text-center">Active Members</div>
+                <div class="card-body text-center fs-3"><?= $activeMembers; ?></div>
+                <div class="card-footer text-center">
+                    <a href="members.php" class="text-white">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-header text-center">Inactive Members</div>
+                <div class="card-body text-center fs-3"><?= $inactiveMembers; ?></div>
+                <div class="card-footer text-center">
+                    <a href="members.php" class="text-white">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            deleteButtons.forEach(button => {
-                button.addEventListener("click", () => {
-                    if (confirm("Are you sure you want to delete this user?")) {
-                        // Perform deletion logic here (e.g., send request to backend)
-                        console.log("User deleted.");
-                    }
-                });
-            });
-        });
-        </script>
+    <!-- Users Summary -->
+    <h2 class="mb-3">Users Summary</h2>
+    <div class="row mb-4">
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-header text-center">Total Users</div>
+                <div class="card-body text-center fs-3"><?= $totalUsers; ?></div>
+                <div class="card-footer text-center">
+                    <a href="users.php" class="text-white">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-header text-center">Admins</div>
+                <div class="card-body text-center fs-3"><?= $adminUsers; ?></div>
+                <div class="card-footer text-center">
+                    <a href="users.php" class="text-white">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-info text-white mb-4">
+                <div class="card-header text-center">Moderators</div>
+                <div class="card-body text-center fs-3"><?= $moderatorUsers; ?></div>
+                <div class="card-footer text-center">
+                    <a href="users.php" class="text-white">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-</body>
-</html>
+<?php include 'footer.php'; ?>

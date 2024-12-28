@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'id' => $postId,
     ]);
 
-    echo "<script>window.location.href='index.php';</script>";
+    echo "<script>window.location.href='posts.php';</script>";
     exit;
 }
 ?>

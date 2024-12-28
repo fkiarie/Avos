@@ -116,34 +116,58 @@ include 'db_connect.php';
         }
     </style>
 </head>
-
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand ps-3" href="index.php">AEAK Dashboard</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="GET" action="search.php">
-            <div class="input-group">
-                <input class="form-control" type="text" name="query" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
 
-        <!-- <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <!-- User Dropdown -->
+        <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <a 
+                    class="nav-link dropdown-toggle d-flex align-items-center" 
+                    id="navbarDropdown" 
+                    href="#" 
+                    role="button" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false"
+                    style="padding-right: 1rem;">
+                    <i class="fas fa-user-circle fa-lg me-2"></i>
+                    <span>Hello, <?= htmlspecialchars($_SESSION['username'] ?? 'Guest'); ?></span>
+                </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    <li>
+                        <a class="dropdown-item" href="profile.php">
+                            <i class="fas fa-user me-2"></i> Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="dashboard.php">
+                            <i class="fas fa-cog me-2"></i> Settings
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-danger" href="logout.php">
+                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                        </a>
+                    </li>
                 </ul>
             </li>
-        </ul>  -->
+        </ul>
     </nav>
+
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
+                        <a class="nav-link" href="dashboard.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
                         <div class="sb-sidenav-menu-heading">Updates</div>
-                        <a class="nav-link" href="index.php">
+                        <a class="nav-link" href="posts.php">
                             <div class="sb-nav-link-icon"><i class="fa-regular fa-newspaper"></i></div>
                             Posts
                         </a>
@@ -153,30 +177,26 @@ include 'db_connect.php';
                         </a>
                     </div>
                     <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Members</div>
+                        <a class="nav-link" href="members.php">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                            Members
+                        </a>
+                    </div>
+                    <div class="nav">
                         <div class="sb-sidenav-menu-heading">Users</div>
                         <a class="nav-link" href="users.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                            users
+                            Users
                         </a>
                         <a class="nav-link" href="register-form.php">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
-                            Add user
-                        </a>
-                        <a class="nav-link" href="logout.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
-                            logout
+                            Add User
                         </a>
                     </div>
-                    <div class="sb-sidenav-footer text-center bg-dark text-light py-3">
-                        <div class="small mb-1">Logged in as:</div>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <i class="fa fa-user-tie me-2" style="font-size: 1.5rem;"></i>
-                            <span class="fw-bold"><?= htmlspecialchars($_SESSION['username'] ?? 'Guest'); ?></span>
-                        </div>
-                    </div>
-
                 </div>
             </nav>
         </div>
+
         <div id="layoutSidenav_content">
             <main>
